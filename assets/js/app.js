@@ -3,18 +3,42 @@ const matrixA = [],
     matrixC = [];
 
 function init() {
-    if(true) { //check if all inputs are of good length
-        createMatrixA();
-        createMatrixB();
-        createMatrixC();
+    let matrixInput = getMatrixInput();
+
+    if(isInputCorrect(matrixInput.matrixSizes)) { //check if all inputs are of good length
+        createMatrixA(matrixInput.matrixAValues, matrixInput.matrixSizes[0]);
+        createMatrixB(matrixInput.matrixBValues);
+        createMatrixC(matrixInput.matrixCValues);
     } else {
         alert("Popraw dane wejściowe!");
     }
 }
 
-function createMatrixA() { //done
+function getMatrixInput() {
     let matrixAValues = document.querySelector("#matrixA").value.split([' ']);
+    let matrixBValues = document.querySelector("#matrixB").value.split([' ']);
+    let matrixCValues = document.querySelector("#matrixC").value.split([' ']);
     let matrixASize = matrixAValues.length;
+    let matrixBSize = matrixBValues.length;
+    let matrixCSize = matrixCValues.length;
+    return {
+        matrixAValues: matrixAValues,
+        matrixBValues: matrixBValues,
+        matrixCValues: matrixCValues,
+        matrixSizes: [matrixASize, matrixBSize, matrixCSize]
+    };
+}
+
+function isInputCorrect(matrixSizes) {
+    if(matrixSizes[0] === matrixSizes[1] && matrixSizes[1] === matrixSizes[2]) {
+        if(matrixSizes[0] > 1 && matrixSizes[0] < 7) {
+            return true;
+        } else return false;
+    } else return false;
+}
+
+function createMatrixA(matrixAValues, matrixASize) { //done
+
 
     for(let y=0; y < matrixASize; y++) {
         matrixA[y] = new Array();
@@ -28,17 +52,13 @@ function createMatrixA() { //done
     }
 }
 
-function createMatrixB() {
-    let matrixBValues = document.querySelector("#matrixB").value.split([' ']);
-    let matrixBSize = matrixBValues.length;
+function createMatrixB(matrixBValues) {
     matrixBValues = matrixBValues.map(Number);
 
     console.log(matrixBValues);
 }
 
-function createMatrixC() {
-    let matrixCValues = document.querySelector("#matrixC").value.split([' ']);
-    let matrixCSize = matrixCValues.length;
+function createMatrixC(matrixCValues) {
     matrixCValues = matrixCValues.map(Number);
     console.log(matrixCValues);
 }
